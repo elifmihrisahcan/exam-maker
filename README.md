@@ -1,2 +1,2 @@
 # exam maker
- crate your own questions 
+ written in java
