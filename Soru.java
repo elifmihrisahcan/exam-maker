@@ -1,13 +1,13 @@
-
-import java.util.*;
+import java.io.*;
 
 // sadece bir soru üzerinde duruluyor burada 
-public class Soru {
-     String soru;
-     int zorluk;
-     int puan;
+public class Soru implements Serializable, Comparable<Soru> {
+    String soru;
+    int zorluk;
+    int puan;
 
-    public Soru() {}
+    public Soru() {
+    }
 
     public Soru(String soru, String[] cevaplar, char dogruCevap, int zorluk, int puan) {
         this.soru = soru;
@@ -15,68 +15,59 @@ public class Soru {
         this.puan = puan;
     }
 
-    /**
-     * @return the soru
-     */
+    @Override
+    public int compareTo(Soru au) {
+        return this.puan - au.puan;
+    }
+
     public String getSoru() {
         return soru;
     }
 
-    /**
-     * @param soru the soru to set
-     */
     public void setSoru(String soru) {
         this.soru = soru;
     }
 
-    /**
-     * @return the zorluk
-     */
     public int getZorluk() {
         return zorluk;
     }
 
-    /**
-     * @param zorluk the zorluk to set
-     */
     public void setZorluk(int zorluk) {
         this.zorluk = zorluk;
     }
 
-    /**
-     * @return the puan
-     */
     public int getPuan() {
         return puan;
     }
 
-    /**
-     * @param puan the puan to set
-     */
     public void setPuan(int puan) {
         this.puan = puan;
     }
 
     /** Soruyu ekrana yaz. */
     public void soruYaz() {
-        System.out.println(" Soru: " + getSoru());
+        System.out.println("Puan (" + getPuan() + ")");
+        System.out.println(getSoru());
+
     }
 
     /** Soruyu ekrandan oku. */
-    public void soruOku(Scanner input) {
+    public void soruOku() {
         System.out.print("soru: ");
-        String soru = input.next().trim();
+        String soru = Main.input.nextLine().trim();
         setSoru(soru);
 
         System.out.print("zorluk (1/2/3): ");
-        int zorluk = input.nextInt();
+        int zorluk = Integer.parseInt(Main.input.nextLine());
         setZorluk(zorluk);
 
         System.out.print("puan: ");
-        int puan = input.nextInt();
+        int puan = Integer.parseInt(Main.input.nextLine());
         setPuan(puan);
     }
 
     /** Soruyu sor. */
-    public int soruSor(Scanner input) { return 0; }
+    public int soruSor() {
+        return 0;
+    }
 }

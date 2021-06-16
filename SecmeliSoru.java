@@ -5,45 +5,34 @@ import java.util.*;
 public class SecmeliSoru extends Soru {
     String[] cevaplar = new String[4];
     char dogruCevap;
+    char verilenCevap;
     
-    /**
-     * @return the cevaplar
-     */
     public String[] getCevaplar() {
         return cevaplar;
     }
 
-    /**
-     * @param cevaplar the cevaplar to set
-     */
     public void setCevaplar(String[] cevaplar) {
         this.cevaplar = cevaplar;
     }
 
-    /**
-     * @return the dogruCevap
-     */
     public char getDogruCevap() {
         return dogruCevap;
     }
 
-    /**
-     * @param dogruCevap the dogruCevap to set
-     */
     public void setDogruCevap(char dogruCevap) {
         this.dogruCevap = dogruCevap;
     }
 
     @Override
-    public void soruOku(Scanner input) {
-        super.soruOku(input);
+    public void soruOku() {
+        super.soruOku();
         for (int i = 0; i < 4; i++) {
             System.out.print((char)('A' + i) + ": ");
-            cevaplar[i] = input.next().trim();
+            cevaplar[i] = Main.input.nextLine().trim();
         }
         do {
             System.out.print("doğru cevap (A/B/C/D): ");
-            dogruCevap = input.next().trim().charAt(0);
+            dogruCevap = Main.input.nextLine().trim().charAt(0);
         } while (dogruCevap < 'A' || dogruCevap > 'D');
     }
 
@@ -56,12 +45,11 @@ public class SecmeliSoru extends Soru {
     }
 
     @Override
-    public int soruSor(Scanner input) {
+    public int soruSor() {
         soruYaz();
-        char verilenCevap;
         do {
             System.out.println("Cevabınız: ");
-            verilenCevap = input.next().trim().charAt(0);
+            verilenCevap = Main.input.nextLine().trim().charAt(0);
         } while(verilenCevap < 'A' || verilenCevap > 'D');
         if (verilenCevap == getDogruCevap()) {
             System.out.println("verilen cevap dogru");

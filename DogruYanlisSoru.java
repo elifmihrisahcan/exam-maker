@@ -1,66 +1,39 @@
 
-import java.util.*;
-
 public class DogruYanlisSoru extends Soru { 
-
-    String[] cevaplar = new String[2];
-    char dogruCevap;
+    boolean dogruCevap;
+    boolean verilenCevap;
     
-    /**
-     * @return the cevaplar
-     */
-    public String[] getCevaplar() {
-        return cevaplar;
-    }
-
-    /**
-     * @param cevaplar the cevaplar to set
-     */
-    public void setCevaplar(String[] cevaplar) {
-        this.cevaplar = cevaplar;
-    }
-
-    /**
-     * @return the dogruCevap
-     */
-    public char getDogruCevap() {
+    public boolean getDogruCevap()
+    {
         return dogruCevap;
     }
 
-    /**
-     * @param dogruCevap the dogruCevap to set
-     */
-    public void setDogruCevap(char dogruCevap) {
+    public void setDogruCevap(boolean dogruCevap) {
         this.dogruCevap = dogruCevap;
     }
 
     @Override
-    public void soruOku(Scanner input) {
-        super.soruOku(input);
-        do {
-            System.out.print("(D/Y): ");
-            dogruCevap = input.next().trim().charAt(0);
-        } while (dogruCevap == 'D' || dogruCevap == 'Y');
-
-        
+    public void soruOku() {
+        super.soruOku();
+        char dogruCevap;
+        do
+        {
+            System.out.print("Dogru cevap (D/Y): ");
+            dogruCevap = Main.input.nextLine().trim().toUpperCase().charAt(0);
+        } while (dogruCevap != 'D' && dogruCevap != 'Y');
+        setDogruCevap(dogruCevap == 'D');
     }
 
     @Override
-    public void soruYaz() {
-        super.soruYaz();
-        System.out.println(" D / Y ");
-        
-    }
-
-    @Override
-    public int soruSor(Scanner input) {
+    public int soruSor() {
         soruYaz();
         char verilenCevap;
         do {
             System.out.print("Cevabınız: ");
-            verilenCevap = input.next().trim().charAt(0);
-        } while (dogruCevap == 'D' || dogruCevap == 'Y');
-        if (verilenCevap == getDogruCevap()) {
+            verilenCevap = Main.input.nextLine().trim().toUpperCase().charAt(0);
+        } while (verilenCevap != 'D' && verilenCevap != 'Y');
+        this.verilenCevap = verilenCevap == 'D';
+        if (this.verilenCevap == getDogruCevap()) {
             System.out.println("verilen cevap dogru");
             return getPuan();
         } else {
@@ -68,5 +41,7 @@ public class DogruYanlisSoru extends Soru {
             System.out.println("dogru cevap " + getDogruCevap());
             return 0;
         }
-    }
+    }   
+    
 }
+
